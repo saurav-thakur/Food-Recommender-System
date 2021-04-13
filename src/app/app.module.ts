@@ -11,6 +11,12 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { FrsDataService } from './frs-data.service';
+import { OrderComponent } from './order/order.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { DishesComponent } from './dishes/dishes.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +27,19 @@ import { RegisterComponent } from './register/register.component';
     AboutComponent,
     ContactComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    WelcomeComponent,
+    OrderComponent,
+    NotFoundComponent,
+    DishesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTabsModule
   ],
-  providers: [],
+  providers: [FrsDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

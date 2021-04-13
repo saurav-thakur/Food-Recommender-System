@@ -1,0 +1,53 @@
+<!-- Products -->
+<ng-container *ngTemplateOutlet="products"></ng-container>
+
+<ng-template #products>
+    <section class="product-area pt-100 pb-100">
+        <div class="container">
+            <div class="rainz-grid-sorting row align-items-center">
+                <div class="col-lg-6 col-md-6 result-count">
+                    <p>We found <span class="count">10</span> dishes for you</p>
+                </div>
+    
+                <div class="col-lg-6 col-md-6 ordering">
+                    <div class="select-box">
+                        <label>Sort By:</label>
+                        <select>
+                            <option>Default</option>
+                            <option>Popularity</option>
+                            <option>Latest</option>
+                            <option>Price: low to high</option>
+                            <option>Price: high to low</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6" *ngFor="let product of frsService.productArray">
+                        <div class="single-products-box">
+                            <div class="products-image">
+                                <a routerLink="/products-details">
+                                    <img src="assets/img/shop/shop1.jpg" alt="image">
+                                </a>
+                            </div>
+                            <div class="products-content">
+                                <h3><a routerLink="/products-details"> {{ product.name }} </a></h3>
+                                <div class="price">
+                                    <span class="old-price">${{ product['actual cost'] }}</span>
+                                    <span class="new-price">${{ product['discounted price'] }}</span>
+                                </div>
+                                <div class="star-rating" *ngFor="let star of product.rating">
+                                    <i class='bx bxs-star'></i>
+                                </div>
+                                <a routerLink="/cart" class="add-to-cart">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </section>
+   
+</ng-template>
+ <!-- End Products -->

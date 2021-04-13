@@ -62,6 +62,7 @@ i {
         vertical-align: middle;
     }
 }
+
 img {
     max-width: 100%;
     height: auto;
@@ -7312,3 +7313,8 @@ Go Top CSS
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.mat-tab-labels {
+    justify-content: center;
+}
