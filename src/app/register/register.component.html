@@ -15,37 +15,102 @@
                     <form #Page1Form="ngForm">
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" class="form-control" placeholder="Username" name="username" [(ngModel)]="username" #userName='ngModel' pattern="^[A-Za-z -]+$">
+                            <input type="text" class="form-control" placeholder="Username" name="username" [(ngModel)]="username" #userName='ngModel' pattern="^[A-Za-z0-9]+$" maxlength="25" minlength="4" required>
                         </div>
 
                         <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert alert-danger">
                         
                             <div *ngIf="userName.errors.required">
-                                Name is required.
+                                Username is required.
                             </div>
                             <div *ngIf="userName.errors.pattern">
-                                Please enter only alphabets.
+                                Please enter an alphanumeric Username.
                             </div>
+                            <div *ngIf="userName.errors.minlength">
+                                Please enter minimum of 4 characters.
+                            </div>
+                        </div>
+
+                        <div class="flexing">
+                            <div class="form-group flex-child">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" placeholder="" name="firstName"  [(ngModel)]="firstName" #FirstName='ngModel' required>
+                            </div>
+    
+                            <div class="form-group flex-child">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" placeholder="" name="lastName"  [(ngModel)]="lastName" #LastName='ngModel' required>
+                            </div>
+                        </div>
+
+                        <div *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="FirstName.errors.required">
+                                First Name is required.
+                            </div>
+
+                        </div>
+
+                        <div *ngIf="LastName.invalid && (FirstName.dirty || LastName.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="LastName.errors.required">
+                                Last Name is required.
+                            </div>
+
                         </div>
 
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="email" #emailAddress='ngModel' >
+                            <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="email" #emailAddress='ngModel' pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$' required>
+                        </div>
+
+                        <div *ngIf="emailAddress.invalid && (emailAddress.dirty || emailAddress.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="emailAddress.errors.required">
+                                Email address is required.
+                            </div>
+
+                            <div *ngIf="emailAddress.errors.pattern">
+                                Please enter a valid email address.
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input type="tel" class="form-control" placeholder="Phone Number">
+                            <input type="tel" class="form-control" placeholder="Phone Number" name="number" [(ngModel)]="number" #phoneNumber='ngModel' pattern="^[6-9][0-9]{9}$" maxlength="10" required>
+                        </div>
+
+                        <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="phoneNumber.errors.required">
+                                Phone number is required.
+                            </div>
+
+                            <div *ngIf="phoneNumber.errors.pattern">
+                                Please enter a valid phone number.
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" class="form-control" placeholder="Password"  name="password" [(ngModel)]="password" #pass='ngModel' minlength="4" maxlength="16" required>
+                        </div>
+
+                        <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="pass.errors.required">
+                                Password is required.
+                            </div>
+
+                            <div *ngIf="pass.errors.minlength">
+                                Please enter a password more than 4 characters.
+                            </div>
+
                         </div>
 
                         <p class="description">The password should be at least eight characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & )</p>
 
-                        <button type="submit" class="default-btn" (click)="controlSteps('page2')">Next</button>
+                        <button type="submit" class="default-btn"  [disabled]="!Page1Form.valid" (click)="controlSteps('page2')">Next</button>
 
                         <div style="text-align: center;">
                             <br>
@@ -58,58 +123,109 @@
             <div *ngIf="stepIndex == 1"class="col-lg-6 col-md-12">
                 <div class="register-form"  >
                     <h2 style="text-align: center;">Register</h2>
-                    <p style="text-align: center; font-size: small;" >Please provide the following details.</p>
-                    <form>
+                    <p style="text-align: center; font-size: small;" >Please provide the following additional details.</p>
+                    <form #Page2Form="ngForm">
                         <div class="flexing">
                         <div class="form-group flex-child">
                             <label>Age</label>
-                            <input type="number" class="form-control" placeholder="Age" style="width: 50%; ">
+                            <input type="number" class="form-control" placeholder="Age" style="width: 50%; " name="age"  [(ngModel)]="age" #Age='ngModel' minlength="2" maxlength="3">
                         </div>
 
                         <div class="form-group flex-child">
                             <label>Gender</label>
-                            <select>
+                            <select [(ngModel)]="gender" name="gender">
                                <option value="male"> Male </option> 
                                <option value="female"> Female </option>
+                               <option value="other"> Other </option>
                             </select>
                         </div>
                     </div>
+
+                    <div class="alert alert-danger" *ngIf="age < 10 || age > 110">Please enter age in range of 10-110.</div>
  
                         <div>
                             <h5 style="display: inline; margin-right: 2%;">Address</h5>
                             <!-- <hr> -->
-                            <input type="text" placeholder="Save As (Eg: Home)" class="form-control" style="width: 35%; height: 35px; display: inline;">
+                            <input type="text" placeholder="Save As (Eg: Home)" class="form-control" style="width: 35%; height: 35px; display: inline;" name="saveAs"  [(ngModel)]="saveAs" >
                         </div>
 
                         <hr>
                         <div class="form-group">
                             <label>House No / Street No / Block No</label>
-                            <input type="tel" class="form-control" placeholder="">
+                            <input type="text" class="form-control" placeholder="Eg: Flat No: 117, Block D, XYZ Apts" name="houseNo"  [(ngModel)]="houseNo" #HouseNo='ngModel' required>
+                        </div>
+
+                        <div *ngIf="HouseNo.invalid && (HouseNo.dirty || HouseNo.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="HouseNo.errors.required">
+                                This field is required.
+                            </div>
+
                         </div>
 
                         <div class="form-group">
                             <label>Locality</label>
-                            <input type="tel" class="form-control" placeholder="">
+                            <input type="tel" class="form-control" placeholder=""  name="locality"  [(ngModel)]="locality" #Locality='ngModel' required>
+                        </div>
+
+                        <div *ngIf="Locality.invalid && (Locality.dirty || Locality.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="Locality.errors.required">
+                                Locality is required.
+                            </div>
+
                         </div>
 
                         <div class="form-group">
                             <label>City</label>
-                            <input type="tel" class="form-control" placeholder="">
+                            <input type="tel" class="form-control" placeholder=""  name="city"  [(ngModel)]="city" #City='ngModel' required>
+                        </div>
+
+                        <div *ngIf="City.invalid && (City.dirty || City.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="City.errors.required">
+                               City is required.
+                            </div>
+
                         </div>
 
                         <div class="flexing">
                             <div class="form-group flex-child">
                                 <label>State</label>
-                                <input type="tel" class="form-control" placeholder="">
+                                <input type="tel" class="form-control" placeholder="" name="state"  [(ngModel)]="state" #State='ngModel' required>
                             </div>
     
                             <div class="form-group flex-child">
                                 <label>Pincode</label>
-                                <input type="tel" class="form-control" placeholder="">
+                                <input type="tel" class="form-control" placeholder="" name="pincode"  [(ngModel)]="pincode" #Pincode='ngModel' pattern="^[0-9]+$" minlength="6" maxlength="6" required>
                             </div>
                         </div>
 
-                        <button type="submit" class="default-btn" (click)="controlSteps('register')">Register</button>
+                        <div *ngIf="State.invalid && (State.dirty || State.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="State.errors.required">
+                                State is required.
+                            </div>
+
+                        </div>
+
+                        <div *ngIf="Pincode.invalid && (Pincode.dirty || Pincode.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="Pincode.errors.required">
+                                Pincode is required.
+                            </div>
+
+                            <div *ngIf="Pincode.errors.minlength">
+                                Enter a valid pincode (length-6).
+                            </div>
+
+                            <div *ngIf="Pincode.errors.pattern">
+                                Pincode consists of only digits.
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="default-btn" [disabled]="!Page2Form.valid" (click)="controlSteps('register')">Register</button>
 
                         <div style="text-align: center;">
                             <br>

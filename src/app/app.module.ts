@@ -17,6 +17,7 @@ import { FrsDataService } from './frs-data.service';
 import { OrderComponent } from './order/order.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DishesComponent } from './dishes/dishes.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DishesComponent } from './dishes/dishes.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatTabsModule
+    MatTabsModule,
+    FormsModule
   ],
   providers: [FrsDataService],
   bootstrap: [AppComponent]

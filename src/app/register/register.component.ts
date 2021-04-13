@@ -9,17 +9,20 @@ export class RegisterComponent implements OnInit {
 
   public stepIndex: number = 0;
   public username: string;
+  public firstName: string;
+  public lastName: string;
   public email: string;
   public password: string;
   public code: number = 91;
   public number: string;
   public age: number;
-  public gender: string;
+  public gender: string = 'male';
   public houseNo: string;
   public locality: string;
   public city: string;
   public state: string;
   public pincode: number;
+  public saveAs: string;
 
   constructor() { }
 
@@ -36,7 +39,24 @@ export class RegisterComponent implements OnInit {
           break;
         case 'register':
           // call backend
-          alert('In register');
+          let object = {
+            "userName": this.username,
+            "email": this.email,
+            "First Name": this.firstName,
+            "Last name": this.lastName,
+            "password": this.password,
+            "phoneNumber": this.number,
+            "age": this.age,
+            "gender": this.gender,
+            "saveAs": this.saveAs,
+            "houseNo": this.houseNo,
+            "city": this.city,
+            "locality": this.locality,
+            "state": this.state,
+            "pincode": this.pincode
+          };
+
+          alert(JSON.stringify(object));
           break;
         default:
           alert('Wow, this should not happen!');
