@@ -18,6 +18,16 @@ import { OrderComponent } from './order/order.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { FormsModule } from '@angular/forms';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { CartComponent } from './cart/cart.component';
+import { AdminComponent } from './admin/admin.component';
+import { RestaurantAddComponent } from './restaurant-add/restaurant-add.component';
+import { DriverAddComponent } from './driver-add/driver-add.component';
+import { AdminStatsComponent } from './admin-stats/admin-stats.component';
+import { RestaurantAdminComponent } from './restaurant-admin/restaurant-admin.component';
+import { DishAddComponent } from './dish-add/dish-add.component';
+import { RestaurantStatsComponent } from './restaurant-stats/restaurant-stats.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,14 +42,24 @@ import { FormsModule } from '@angular/forms';
     WelcomeComponent,
     OrderComponent,
     NotFoundComponent,
-    DishesComponent
+    DishesComponent,
+    ProductDetailsComponent,
+    CartComponent,
+    AdminComponent,
+    RestaurantAddComponent,
+    DriverAddComponent,
+    AdminStatsComponent,
+    RestaurantAdminComponent,
+    DishAddComponent,
+    RestaurantStatsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTabsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [FrsDataService],
   bootstrap: [AppComponent]

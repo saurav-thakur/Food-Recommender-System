@@ -18,21 +18,22 @@
 <div>
     <mat-tab-group>
         <mat-tab label="Hyderabad">
-           Content 1
+            <ng-container *ngTemplateOutlet="products"></ng-container>
         </mat-tab>
         <mat-tab label="Delhi"> 
-            Content 2
+            <ng-container *ngTemplateOutlet="products"></ng-container>
          </mat-tab>
         <mat-tab label="Vizag">
-            Content 3
+            <ng-container *ngTemplateOutlet="products"></ng-container>
         </mat-tab>
         <mat-tab label="Bangalore">
-            Content 4
+            <ng-container *ngTemplateOutlet="products"></ng-container>
         </mat-tab>
       </mat-tab-group>
 </div>
 
 <!-- Products -->
+<ng-template #products>
 <section class="product-area pt-100 pb-100">
     <div class="container">
         <div class="row">
@@ -45,164 +46,42 @@
                     <div class="col-lg-6 col-md-6 ordering">
                         <div class="select-box">
                             <label>Sort By:</label>
-                            <select>
-                                <option>Default</option>
-                                <option>Popularity</option>
-                                <option>Latest</option>
-                                <option>Price: low to high</option>
-                                <option>Price: high to low</option>
-                            </select>
+                            <div _ngcontent-klu-c83 class="nice-select">
+                                <span class="current">Default</span>
+                                <ul class="list">
+                                    <li data-value="Default" class="option selected focus">Default</li>
+                                    <li data-value="Popularity" class="option">Popularity</li>
+                                    <li data-value="Latest" class="option">Latest</li>
+                                    <li data-value="Price: low to high" class="option">Price: low to high</li>
+                                    <li data-value="Price: high to low" class="option">Price: high to low</li>
+                                </ul>
                         </div>
+                    </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-6 col-md-6">
+
+                    <div class="col-lg-6 col-md-6" *ngFor="let rest of frsService.restaurants">
                         <div class="single-products-box">
                             <div class="products-image">
-                                <a routerLink="/dishes">
+                                <a [routerLink]="['/restaurant',rest.restId]">
                                     <img src="assets/img/shop/shop1.jpg" alt="image">
                                 </a>
                             </div>
                             <div class="products-content">
-                                <h3><a routerLink="/dishes">Note Book Mockup</a></h3>
+                                <h3><a  [routerLink]="['/restaurant', rest.restId]">{{ rest.name }}</a></h3>
                                 <div class="price">
-                                    <span class="old-price">$125</span>
-                                    <span class="new-price">$120</span>
+                                    <p>Speciality</p>
                                 </div>
-                                <div class="star-rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
+                                <div class = "star-rating">
+                                    <span *ngFor="let n of numSequence(4);"> 
+                                        <i class='bx bxs-star'></i>
+                                    </span>
                                 </div>
-                                <a routerLink="/cart" class="add-to-cart">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-6">
-                        <div class="single-products-box">
-                            <div class="products-image">
-                                <a routerLink="/idishes">
-                                    <img src="assets/img/shop/shop2.jpg" alt="image">
-                                </a>
-                            </div>
-                            <div class="products-content">
-                                <h3><a routerLink="/dishes">Motivational Book Cover</a></h3>
-                                <div class="price">
-                                    <span class="old-price">$225</span>
-                                    <span class="new-price">$220</span>
-                                </div>
-                                <div class="star-rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <a routerLink="/cart" class="add-to-cart">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-6">
-                        <div class="single-products-box">
-                            <div class="products-image">
-                                <a routerLink="/products-details">
-                                    <img src="assets/img/shop/shop3.jpg" alt="image">
-                                </a>
-                            </div>
-                            <div class="products-content">
-                                <h3><a routerLink="/products-details">Book Cover Softcover</a></h3>
-                                <div class="price">
-                                    <span class="old-price">$265</span>
-                                    <span class="new-price">$270</span>
-                                </div>
-                                <div class="star-rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <a routerLink="/cart" class="add-to-cart">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-6">
-                        <div class="single-products-box">
-                            <div class="products-image">
-                                <a routerLink="/products-details">
-                                    <img src="assets/img/shop/shop4.jpg" alt="image">
-                                </a>
-                            </div>
-                            <div class="products-content">
-                                <h3><a routerLink="/products-details">Stop and Take a Second</a></h3>
-                                <div class="price">
-                                    <span class="old-price">$125</span>
-                                    <span class="new-price">$120</span>
-                                </div>
-                                <div class="star-rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <a routerLink="/cart" class="add-to-cart">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-6">
-                        <div class="single-products-box">
-                            <div class="products-image">
-                                <a routerLink="/products-details">
-                                    <img src="assets/img/shop/shop5.jpg" alt="image">
-                                </a>
-                            </div>
-                            <div class="products-content">
-                                <h3><a routerLink="/products-details">Real Life Fairytale</a></h3>
-                                <div class="price">
-                                    <span class="old-price">$225</span>
-                                    <span class="new-price">$220</span>
-                                </div>
-                                <div class="star-rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <a routerLink="/cart" class="add-to-cart">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-6">
-                        <div class="single-products-box">
-                            <div class="products-image">
-                                <a routerLink="/products-details">
-                                    <img src="assets/img/shop/shop6.jpg" alt="image">
-                                </a>
-                            </div>
-                            <div class="products-content">
-                                <h3><a routerLink="/products-details">Running From Me</a></h3>
-                                <div class="price">
-                                    <span class="old-price">$265</span>
-                                    <span class="new-price">$270</span>
-                                </div>
-                                <div class="star-rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <a routerLink="/cart" class="add-to-cart">Add to Cart</a>
+                                
+                                
+                                <a routerLink="/cart" class="add-to-cart">View Dishes</a>
                             </div>
                         </div>
                     </div>
@@ -231,8 +110,11 @@
                                 <span class="fullimage cover bg1" role="img"></span>
                             </a>
                             <div class="info">
-                                <span>$49.00</span>
                                 <h4 class="title usmall"><a routerLink="/products-details">Random Romance Novel Title Generator</a></h4>
+                                <div class="price">
+                                    <p>Speciality</p>
+                                </div>
+                                
                                 <div class="rating">
                                     <i class='bx bxs-star'></i>
                                     <i class='bx bxs-star'></i>
@@ -304,4 +186,5 @@
         </div>
     </div>
 </section>
+</ng-template>
 <!-- End Products -->

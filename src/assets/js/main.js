@@ -216,6 +216,7 @@ $(function ($) {
 		max = input.attr('max');
 		
 		btnUp.on('click', function() {
+			debugger;
 			var oldValue = parseFloat(input.val());
 			if (oldValue >= max) {
 				var newVal = oldValue;

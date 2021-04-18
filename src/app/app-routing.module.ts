@@ -8,6 +8,15 @@ import { OrderComponent } from './order/order.component';
 import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { DishesComponent } from './dishes/dishes.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { CartComponent } from './cart/cart.component';
+import { AdminComponent } from './admin/admin.component';
+import { RestaurantAddComponent } from './restaurant-add/restaurant-add.component';
+import { DriverAddComponent } from './driver-add/driver-add.component';
+import { AdminStatsComponent } from './admin-stats/admin-stats.component';
+import { RestaurantAdminComponent } from './restaurant-admin/restaurant-admin.component';
+import { DishAddComponent } from './dish-add/dish-add.component';
+import { RestaurantStatsComponent } from './restaurant-stats/restaurant-stats.component';
 
 const routes: Routes = [
   {path: '', component: WelcomeComponent},
@@ -16,7 +25,16 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: RegisterComponent},
   {path: 'order', component: OrderComponent},
-  {path: 'dishes', component: DishesComponent},
+  {path: 'restaurant/:restId', component: DishesComponent},
+  {path: 'item-details/:restId/:dishId', component: ProductDetailsComponent},
+  {path: 'cart', component: CartComponent},
+  {path: 'admin', component: AdminComponent},
+  {path: 'restaurant-add', component: RestaurantAddComponent},
+  {path: 'driver-add', component: DriverAddComponent},
+  {path: 'admin-stats', component: AdminStatsComponent},
+  {path: 'restaurant-admin', component: RestaurantAdminComponent},
+  {path: 'dishes-add', component: DishAddComponent},
+  {path: 'restaurant-stats', component: RestaurantStatsComponent},
   {path: '**', component: NotFoundComponent}
 ];
 

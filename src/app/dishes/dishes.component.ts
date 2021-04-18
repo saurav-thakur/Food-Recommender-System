@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FrsDataService } from '../frs-data.service';
+import { ActivatedRoute, Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-dishes',
@@ -8,9 +10,13 @@ import { FrsDataService } from '../frs-data.service';
 })
 export class DishesComponent implements OnInit {
 
-constructor(public frsService: FrsDataService) { }
+  constructor(public frsService: FrsDataService, public _route: ActivatedRoute, public router: Router) { }
+
+  public restId: any;
 
   ngOnInit(): void {
+    this.restId = this._route.snapshot.paramMap.get('restId');;
+	  alert("Rest ID: " + this.restId );
   }
 
 }

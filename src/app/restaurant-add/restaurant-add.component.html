@@ -10,51 +10,38 @@
 
             <div *ngIf="stepIndex == 0"class="col-lg-6 col-md-12">
                 <div class="register-form" >
-                    <h2 style="text-align: center;">Register</h2>
+                    <h2 style="text-align: center;">Add Restaurant</h2>
                     <p style="text-align: center; font-size: small;" >Please provide the following details.</p>
                     <form #Page1Form="ngForm">
                         <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" class="form-control" placeholder="Username" name="username" [(ngModel)]="username" #userName='ngModel' pattern="^[A-Za-z0-9]+$" maxlength="25" minlength="4" required>
+                            <label>Restaurant ID (login ID) </label>
+                            <input type="text" class="form-control" placeholder="Eg: 101" name="restId" [(ngModel)]="restId" #RestID='ngModel' pattern="^[0-9]+$" maxlength="8" minlength="3" required>
                         </div>
 
-                        <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert alert-danger">
+                        <div *ngIf="RestID.invalid && (RestID.dirty || RestID.touched)" class="alert alert-danger">
                         
-                            <div *ngIf="userName.errors.required">
-                                Username is required.
+                            <div *ngIf="RestID.errors.required">
+                                RestaurantID is required.
                             </div>
-                            <div *ngIf="userName.errors.pattern">
-                                Please enter an alphanumeric Username.
+                            <div *ngIf="RestID.errors.pattern">
+                                Please enter an integer value.
                             </div>
-                            <div *ngIf="userName.errors.minlength">
-                                Please enter minimum of 4 characters.
-                            </div>
-                        </div>
-
-                        <div class="flexing">
-                            <div class="form-group flex-child">
-                                <label>First Name</label>
-                                <input type="text" class="form-control" placeholder="" name="firstName"  [(ngModel)]="firstName" #FirstName='ngModel' required>
-                            </div>
-    
-                            <div class="form-group flex-child">
-                                <label>Last Name</label>
-                                <input type="text" class="form-control" placeholder="" name="lastName"  [(ngModel)]="lastName" #LastName='ngModel' required>
+                            <div *ngIf="RestID.errors.minlength">
+                                Please enter minimum of 3 characters.
                             </div>
                         </div>
 
-                        <div *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)" class="alert alert-danger">
                         
-                            <div *ngIf="FirstName.errors.required">
-                                First Name is required.
-                            </div>
-
+                        <div class="form-group">
+                            <label>Restaurant Name</label>
+                            <input type="text" class="form-control" placeholder="" name="restName"  [(ngModel)]="restName" #RestName='ngModel' required>
                         </div>
-
-                        <div *ngIf="LastName.invalid && (FirstName.dirty || LastName.touched)" class="alert alert-danger">
                         
-                            <div *ngIf="LastName.errors.required">
-                                Last Name is required.
+
+                        <div *ngIf="RestName.invalid && (RestName.dirty || RestName.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="RestName.errors.required">
+                                Restaurant Name is required.
                             </div>
 
                         </div>
@@ -114,7 +101,7 @@
 
                         <div style="text-align: center;">
                             <br>
-                            <a href = "/login">Back to Login </a>
+                            <a href = "/admin">Back to Admin page </a>
                        </div>
 
                     </form>
@@ -122,50 +109,35 @@
             </div>
             <div *ngIf="stepIndex == 1"class="col-lg-6 col-md-12">
                 <div class="register-form"  >
-                    <h2 style="text-align: center;">Register</h2>
+                    <h2 style="text-align: center;">Add Additional Restaurant Details</h2>
                     <p style="text-align: center; font-size: small;" >Please provide the following additional details.</p>
                     <form #Page2Form="ngForm">
-                        <div class="flexing">
-                        <div class="form-group flex-child">
-                            <label>Age</label>
-                            <input type="number" class="form-control" placeholder="Age" style="width: 50%; " name="age"  [(ngModel)]="age" #Age='ngModel' minlength="2" maxlength="3">
+                        <div class="form-group">
+                            <label>Restaurant Speciality</label>
+                            <input type="text" class="form-control" placeholder="" name="restSpeciality"  [(ngModel)]="restSpeciality" #Speciality='ngModel' required>
                         </div>
+                        
 
-                        <div class="form-group flex-child">
-                            <label>Gender</label>
-                            <!-- <select [(ngModel)]="gender" name="gender">
-                               <option value="male"> Male </option> 
-                               <option value="female"> Female </option>
-                               <option value="other"> Other </option>
-                            </select> -->
-                            <div _ngcontent-klu-c83 class="nice-select">
-                                <span class="current">Male</span>
-                                <ul class="list">
-                                    <li data-value="Default" class="option selected focus">Male</li>
-                                    <li data-value="Popularity" class="option">Female</li>
-                                    <li data-value="Latest" class="option">Other</li>
-                                </ul>
-                        </div>
-                        </div>
-                    </div>
+                        <div *ngIf="Speciality.invalid && (Speciality.dirty || Speciality.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="Speciality.errors.required">
+                                Restaurant Speciality is required.
+                            </div>
 
-                    <div class="alert alert-danger" *ngIf="age < 10 || age > 110">Please enter age in range of 10-110.</div>
- 
+                        </div>
                         <div>
                             <h5 style="display: inline; margin-right: 2%;">Address</h5>
-                            <!-- <hr> -->
-                            <input type="text" placeholder="Save As (Eg: Home)" class="form-control" style="width: 35%; height: 35px; display: inline;" name="saveAs"  [(ngModel)]="saveAs" >
                         </div>
 
                         <hr>
                         <div class="form-group">
                             <label>House No / Street No / Block No</label>
-                            <input type="text" class="form-control" placeholder="Eg: Flat No: 117, Block D, XYZ Apts" name="houseNo"  [(ngModel)]="houseNo" #HouseNo='ngModel' required>
+                            <input type="text" class="form-control" placeholder="Eg: Flat No: 117, Block D, XYZ Apts" name="streetNo"  [(ngModel)]="streetNo" #StreetNo='ngModel' required>
                         </div>
 
-                        <div *ngIf="HouseNo.invalid && (HouseNo.dirty || HouseNo.touched)" class="alert alert-danger">
+                        <div *ngIf="StreetNo.invalid && (StreetNo.dirty || StreetNo.touched)" class="alert alert-danger">
                         
-                            <div *ngIf="HouseNo.errors.required">
+                            <div *ngIf="StreetNo.errors.required">
                                 This field is required.
                             </div>
 
@@ -233,13 +205,13 @@
 
                         </div>
 
-                        <button type="submit" class="default-btn" [disabled]="!Page2Form.valid" (click)="controlSteps('register')">Register</button>
+                        <button type="submit" class="default-btn" [disabled]="!Page2Form.valid" (click)="controlSteps('register')">Add Restaurant</button>
 
                         <div style="text-align: center;">
                             <br>
                             <a style="cursor: pointer; color: rgb(22, 108, 236);" class="text-hover" (click)="controlSteps('page1')" >Back to previous page</a>
                             <br>
-                            <a href = "/login">Back to Login </a>
+                            <a href = "/admin">Back to Admin Page </a>
                        </div>
 
                     </form>

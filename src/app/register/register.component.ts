@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FrsDataService } from '../frs-data.service';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,7 @@ export class RegisterComponent implements OnInit {
   public pincode: number;
   public saveAs: string;
 
-  constructor() { }
+  constructor(public frsService: FrsDataService) { }
 
   ngOnInit(): void {
   }
@@ -39,24 +40,48 @@ export class RegisterComponent implements OnInit {
           break;
         case 'register':
           // call backend
+          let gending;
+         if(this.gender=="male") {
+           gending = 'M';
+         }
+         else if(this.gender=="female") {
+          gending = 'F';
+        }
+        else {
+          gending = 'O';
+        }
+          
           let object = {
-            "userName": this.username,
-            "email": this.email,
-            "First Name": this.firstName,
-            "Last name": this.lastName,
-            "password": this.password,
-            "phoneNumber": this.number,
-            "age": this.age,
-            "gender": this.gender,
-            "saveAs": this.saveAs,
-            "houseNo": this.houseNo,
+            "Username": this.username,
+            "Email": this.email,
+            "First_name": this.firstName,
+            "Last_name": this.lastName,
+            "Password": this.password,
+            "Code": "+91",
+            "Number": this.number,
+            "Age": this.age,
+            "Gender": gending,
+            "Account_status": "A",
+            "Address_name": this.saveAs,
+            "house_no": this.houseNo,
+            "previelege": "U",
             "city": this.city,
             "locality": this.locality,
             "state": this.state,
             "pincode": this.pincode
           };
 
-          alert(JSON.stringify(object));
+          this.frsService.createUser(object).subscribe(
+            data => {
+              console.log(data);
+            },
+            
+            error => {
+              console.log("Some error has occured"+JSON.stringify(error));
+            }
+          )
+
+          // alert(JSON.stringify(object));
           break;
         default:
           alert('Wow, this should not happen!');

@@ -10,24 +10,24 @@
 
             <div *ngIf="stepIndex == 0"class="col-lg-6 col-md-12">
                 <div class="register-form" >
-                    <h2 style="text-align: center;">Register</h2>
+                    <h2 style="text-align: center;">Add delivery Agent</h2>
                     <p style="text-align: center; font-size: small;" >Please provide the following details.</p>
                     <form #Page1Form="ngForm">
                         <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" class="form-control" placeholder="Username" name="username" [(ngModel)]="username" #userName='ngModel' pattern="^[A-Za-z0-9]+$" maxlength="25" minlength="4" required>
+                            <label>Agent ID</label>
+                            <input type="text" class="form-control" placeholder="Eg: 123" name="driverId" [(ngModel)]="driverId" #DriverId='ngModel' pattern="^[0-9]+$" maxlength="8" minlength="3" required>
                         </div>
 
-                        <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert alert-danger">
+                        <div *ngIf="DriverId.invalid && (DriverId.dirty || DriverId.touched)" class="alert alert-danger">
                         
-                            <div *ngIf="userName.errors.required">
-                                Username is required.
+                            <div *ngIf="DriverId.errors.required">
+                                Agent ID is required.
                             </div>
-                            <div *ngIf="userName.errors.pattern">
-                                Please enter an alphanumeric Username.
+                            <div *ngIf="DriverId.errors.pattern">
+                                Please enter numeric values.
                             </div>
-                            <div *ngIf="userName.errors.minlength">
-                                Please enter minimum of 4 characters.
+                            <div *ngIf="DriverId.errors.minlength">
+                                Please enter minimum of 3 characters.
                             </div>
                         </div>
 
@@ -114,7 +114,7 @@
 
                         <div style="text-align: center;">
                             <br>
-                            <a href = "/login">Back to Login </a>
+                            <a href = "/login">Back to Admin page </a>
                        </div>
 
                     </form>
@@ -149,7 +149,7 @@
                         </div>
                     </div>
 
-                    <div class="alert alert-danger" *ngIf="age < 10 || age > 110">Please enter age in range of 10-110.</div>
+                    <div class="alert alert-danger" *ngIf="age < 21 || age > 60">Age of delivery ageet should be in range of 21-60.</div>
  
                         <div>
                             <h5 style="display: inline; margin-right: 2%;">Address</h5>
@@ -233,13 +233,26 @@
 
                         </div>
 
-                        <button type="submit" class="default-btn" [disabled]="!Page2Form.valid" (click)="controlSteps('register')">Register</button>
+                        <div class="form-group">
+                            <label>Preffered Locations</label>
+                            <input type="tel" class="form-control" placeholder="Eg: Location X, Location Y, Location Z"  name="prefferedLocations"  [(ngModel)]="prefferedLocations" #PrefferedLocations='ngModel' required>
+                        </div>
+
+                        <div *ngIf="PrefferedLocations.invalid && (PrefferedLocations.dirty || PrefferedLocations.touched)" class="alert alert-danger">
+                        
+                            <div *ngIf="PrefferedLocations.errors.required">
+                                Preffered locations is required.
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="default-btn" [disabled]="!Page2Form.valid" (click)="controlSteps('register')">Add Delivery Agent</button>
 
                         <div style="text-align: center;">
                             <br>
                             <a style="cursor: pointer; color: rgb(22, 108, 236);" class="text-hover" (click)="controlSteps('page1')" >Back to previous page</a>
                             <br>
-                            <a href = "/login">Back to Login </a>
+                            <a href = "/login">Back to Admin page</a>
                        </div>
 
                     </form>
@@ -249,3 +262,4 @@
     </div>
 </section>
 <!-- End Register -->
+
