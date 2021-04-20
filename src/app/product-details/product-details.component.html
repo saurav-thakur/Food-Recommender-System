@@ -10,11 +10,11 @@
 
                     <div class="col-lg-6 col-md-12">
                         <div class="product-details-desc">
-                            <h3>Stop And Take A Second</h3>
+                            <h3>{{ dishData.dishName }}</h3>
 
                             <div class="price">
-                                <span class="new-price">$541.00</span>
-                                <span class="old-price">$652.00</span>
+                                <span class="new-price">${{dishData.dishActualCost}}</span>
+                                <span class="old-price">${{dishData.dishDiscCost}}</span>
                             </div>
 
                             <div class="product-review">
@@ -28,15 +28,15 @@
                                 <a routerLink="/" class="rating-count">3 reviews</a>
                             </div>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.</p>
+                            <p>{{ dishData.dishDesc }}</p>
 
                             <div class="product-add-to-cart">
-                                <div class="input-counter">
+                                <!-- <div class="input-counter">
                                     <span class="minus-btn"><i class='bx bx-minus'></i></span>
-                                    <input type="text" min="1" value="1">
+                                    <input type="text" min="1" value="1" id="item-details-quantity">
                                     <span class="plus-btn"><i class='bx bx-plus'></i></span>
-                                </div>
-                                <button type="submit" class="default-btn">Add to cart</button>
+                                </div> -->
+                                <button type="submit" class="default-btn" (click)="cartProcess()">Add to cart</button>
                             </div>
 
                             <div class="buy-checkbox-btn">

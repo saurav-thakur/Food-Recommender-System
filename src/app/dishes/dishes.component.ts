@@ -12,11 +12,31 @@ export class DishesComponent implements OnInit {
 
   constructor(public frsService: FrsDataService, public _route: ActivatedRoute, public router: Router) { }
 
-  public restId: any;
+  numSequence(n: number): Array<number> {
+    return Array(n);
+  }
+
+  public restId;
+  public dishList;
+
 
   ngOnInit(): void {
-    this.restId = this._route.snapshot.paramMap.get('restId');;
-	  alert("Rest ID: " + this.restId );
+    this.restId = this._route.snapshot.paramMap.get('restId');
+    this.frsService.getDishes(this.restId).subscribe(
+      data => {
+        this.dishList =  data
+      //   for(let key in this.restList){
+      //   if(this.restList.hasOwnProperty(key)){
+      //     this.arr.push(this.restList[key]);
+      //   }
+      // }
+      console.log(this.dishList)
+      },
+      
+      error => {
+        console.log("Some error has occured"+JSON.stringify(error));
+      }
+    )
   }
 
 }

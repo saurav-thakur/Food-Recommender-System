@@ -232,7 +232,42 @@ class AddDish(Resource):
         dish_tags = data['dishTags']
         tagsArray = dish_tags.split(' ')
         return db.addDish(dish_data, tagsArray)
+
+class GetRestList(Resource):
+
+	def get(self):
+		city  = request.args.get('city')
+		rest_list = db.getRestaurants(city)
+		print(rest_list)
+		return {"Restaurant details": rest_list}
+
+class GetDishes(Resource):
+
+	def get(self, restId):
+		dishList = db.getDishes(restId)
+		print(dishList)
+		return dishList
+
+class GetDishDetails(Resource):
+
+	def get(self, restId, dishId):
+		details = db.showDish(restId, dishId)
+		print(details)
+		return details
   
+class UserAdminLogin(Resource):
+
+  def post(self):
+
+    data = request.get_json()
+    username = data['userName']
+    password = data['password']
+
+    result = db.login(username, password)
+    # if result["Username"] == "None":
+    #   result = db.restDriverLogin(username, password)
+    return result
+
 
 api.add_resource(Order, '/order/<string:rest_ID>/<string:dish_ID>')
 api.add_resource(User_Orders, '/<string:username>/orders')
@@ -241,6 +276,10 @@ api.add_resource(User, '/updateUser')
 api.add_resource(Restaurant, '/updateRestaurant')
 api.add_resource(Driver, '/updateDriver')
 api.add_resource(AddDish, '/addDish')
+api.add_resource(GetRestList, '/getRestaurants')
+api.add_resource(GetDishes, '/getDishes/<int:restId>')
+api.add_resource(GetDishDetails, '/item-details/<int:restId>/<int:dishId>')
+api.add_resource(UserAdminLogin, '/verifyUser')
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -8,6 +8,9 @@ export class FrsDataService {
 
   public baseUrl = 'http://localhost:5000';
 
+  public cartArray = [];
+  public cartCount: number = 0;
+
   constructor(private _http: HttpClient) { }
 
   public getProductArrays(): any {
@@ -22,8 +25,29 @@ export class FrsDataService {
     return myResponse;
   }
 
+  public login(data): any {
+    let myResponse = this._http.post(this.baseUrl + '/verifyUser', data);
+
+    return myResponse;
+  }
+
   public createRestaurant(data): any{
     let myResponse = this._http.post(this.baseUrl + '/updateRestaurant', data);
+    return myResponse;
+  }
+
+  public getRestaurants(data): any{
+    let myResponse = this._http.get(this.baseUrl + '/getRestaurants?city=' + data);
+    return myResponse;
+  }
+
+  public getDishes(data): any{
+    let myResponse = this._http.get(this.baseUrl + '/getDishes/' + data);
+    return myResponse;
+  }
+
+  public getDishDetails(restId, dishId): any{
+    let myResponse = this._http.get(this.baseUrl + '/item-details/' + restId + '/' + dishId);
     return myResponse;
   }
 

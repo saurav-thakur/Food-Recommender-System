@@ -28,21 +28,23 @@
             </div>
 
                 <div class="row">
-                    <div class="col-lg-4 col-md-6" *ngFor="let product of frsService.productArray">
+                    <div class="col-lg-4 col-md-6" *ngFor="let product of dishList">
                         <div class="single-products-box">
                             <div class="products-image">
-                                <a routerLink="/products-details">
+                                <a [routerLink]="['/item-details', product.restId, product.dishId]">
                                     <img src="assets/img/shop/shop1.jpg" alt="image">
                                 </a>
                             </div>
                             <div class="products-content">
-                                <h3><a routerLink="/products-details"> {{ product.name }} </a></h3>
+                                <h3><a [routerLink]="['/item-details', product.restId, product.dishId]"> {{ product.dishName }} </a></h3>
                                 <div class="price">
-                                    <span class="old-price">${{ product['actual cost'] }}</span>
-                                    <span class="new-price">${{ product['discounted price'] }}</span>
+                                    <span class="old-price">${{ product.dishActualCost }}</span>
+                                    <span class="new-price">${{ product.dishDiscCost }}</span>
                                 </div>
-                                <div class="star-rating" *ngFor="let star of product.rating">
-                                    <i class='bx bxs-star'></i>
+                                <div class = "star-rating">
+                                    <span *ngFor="let n of numSequence(product.dishRating);"> 
+                                        <i class='bx bxs-star'></i>
+                                    </span>
                                 </div>
                                 <a routerLink="/cart" class="add-to-cart">Add to Cart</a>
                             </div>
