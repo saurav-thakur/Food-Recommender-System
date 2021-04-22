@@ -33,6 +33,14 @@
                             <a href="javascript:void(0)" class="nav-link">Contact Us </a>
                         </li>
 
+                        <li class="nav-item" *ngIf="frsService.isAdmin">
+                            <a routerLink="/admin" class="nav-link">Admin Page </a>
+                        </li>
+
+                        <li class="nav-item" *ngIf="frsService.isRestaurant">
+                            <a routerLink="/restaurant-admin" class="nav-link">Restaurant Page </a>
+                        </li>
+
                     </ul>
 
                     <div class="others-options d-flex align-items-center">
@@ -45,15 +53,27 @@
                             </div>
                         </div>
 
-                        <div class="option-item" *ngIf="userName" >
-                           Welcome {{userName}} !
+                        <div class="option-item" *ngIf="frsService.userName && !frsService.isAdmin" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                           Welcome {{frsService.userName}}
                         </div>
-                        <div class="option-item" *ngIf="!userName">
+                        <div class="option-item" *ngIf="frsService.userName && frsService.isAdmin" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            {{frsService.userName}} (Admin)
+                         </div>
+
+                        <div class="option-item" *ngIf="frsService.restName" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            {{frsService.restName}}
+                         </div>
+
+                        <div class="option-item" *ngIf="!frsService.userName && !frsService.restName">
                             <a routerLink="/login" class="default-btn">Login | Sign up</a>
                         </div>
-                        <div class="option-item" *ngIf="userName">
+
+                        <div class="option-item" *ngIf="frsService.userName">
                             <a routerLink="" (click)="logout()" class="default-btn">Logout</a>
                         </div>
+                    </div>
+                    <div class="option-item" *ngIf="frsService.restName">
+                        <a routerLink="" (click)="logout()" class="default-btn">Logout</a>
                     </div>
                 </div>
             </nav>

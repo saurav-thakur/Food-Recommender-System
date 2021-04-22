@@ -8,14 +8,40 @@
                 </div>
             </div>
 
+            <!-- <div>
+                <mat-tab-group >
+                    <mat-tab label="Hyderabad" name="Hyderabad">
+                        <ng-container *ngTemplateOutlet="products"></ng-container>
+                    </mat-tab>
+                    <mat-tab label="Delhi"> 
+                        <ng-container *ngTemplateOutlet="products"></ng-container>
+                     </mat-tab>
+                    <mat-tab label="Vizag">
+                        <ng-container *ngTemplateOutlet="products"></ng-container>
+                    </mat-tab>
+                    <mat-tab label="Bangalore">
+                        <ng-container *ngTemplateOutlet="products"></ng-container>
+                    </mat-tab>
+                  </mat-tab-group>
+            </div> -->
+            <!-- <ng-template #products> -->
             <div class="col-lg-6 col-md-12">
                 <div class="login-form">
+                    <div style="text-align: right;">
+                        <a (click)="showRestLogin()" *ngIf="!isRestaurantLogin" style="cursor: pointer; text-decoration: underline;">Restaurant Login</a>
+                        <a (click)="showUserLogin()" *ngIf="isRestaurantLogin" style="cursor: pointer; text-decoration: underline;"> User Login</a>
+                    </div>
                     <h2>Login</h2>
 
                     <form #LoginForm="ngForm">
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="!isRestaurantLogin">
                             <label>Username</label>
                             <input type="text" class="form-control" placeholder="Username" name="username"  [(ngModel)]="username" required>
+                        </div>
+
+                        <div class="form-group" *ngIf="isRestaurantLogin">
+                            <label>Restaurant ID</label>
+                            <input type="text" class="form-control" placeholder="Restaurant ID" name="restId"  [(ngModel)]="restId" required>
                         </div>
 
                         <div class="form-group">
@@ -45,6 +71,7 @@
                     </form>
                 </div>
             </div>
+            <!-- </ng-template> -->
         </div>
     </div>
 </section>

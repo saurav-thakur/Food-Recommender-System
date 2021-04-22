@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FrsDataService } from '../frs-data.service';
 
 
@@ -8,20 +9,23 @@ import { FrsDataService } from '../frs-data.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  public userName;
-  constructor(public frsService: FrsDataService) { }
+  constructor(public frsService: FrsDataService, public router: Router) { }
 
   ngOnInit(): void {
     if(sessionStorage.getItem('cartCount') != null) {
       this.frsService.cartCount = parseInt(sessionStorage.getItem('cartCount'));
     }
-    if(sessionStorage.getItem('userDetails') != null) {
-      this.userName = Object.keys(JSON.parse(sessionStorage.getItem('userDetails')))[0];
-    }
+    this.frsService.postLoginActivities();
   }
 
   logout() {
-    
+    sessionStorage.removeItem('userDetails');
+    sessionStorage.removeItem('restDetails')
+    this.frsService.userName = undefined;
+    this.frsService.restName = undefined;
+    this.frsService.isAdmin = false;
+    this.frsService.isRestaurant = false;
+    this.router.navigateByUrl('/login');
   }
 
 }

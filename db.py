@@ -151,33 +151,57 @@ def login(username, password):
     cur.callproc('userLogin', [username, password])
     for result in cur.stored_results():
         user = result.fetchall()
+    
+    userData = dict()
     if user:
-        return {
-            user[0][0] : "U"
-        }
-    
-    cur.callproc('adminLogin', [username, password])
-    for result in cur.stored_results():
-        admin = result.fetchall()
-    
-    # username =  int(username)
-    # cur.callproc('restLogin', [username, password])
-    # for result in cur.stored_results():
-    #     rest = result.fetchall()
-    
-    # cur.callproc('driverLogin', [username, password])
-    # for result in cur.stored_results():
-    #     driver = result.fetchall()
-    
-    if admin:
-        return { admin[0][0]: "A"}
-    
-    return {
-        "Username": "None"
-    }
+        userData['username'] = user[0][0]
+        userData['firstName'] = user[0][1]
+        userData['lastName'] = user[0][2]
+        userData['age'] = user[0][3]
+        userData['gender'] = user[0][4]
+        userData['email'] = user[0][5]
+        userData['privelege'] = user[0][8]
+        userData['phoneNumber'] = user[0][10]
+        userData['houseNo'] = user[0][12]
+        userData['locality'] = user[0][13]
+        userData['city'] = user[0][14]
+        userData['state'] = user[0][15]
+        userData['pincode'] = user[0][16]
+        userData['addressName'] = user[0][17]
+    else:
+        userData['Message'] = "Invalid Credentials"
 
-def restDriverLogin(username, password):
+
+    return userData
+
+
+def restLogin(restId, password):
+    conn = mysqlcon.connect(host= "localhost", user = "root", password = "mysql@1234")
+    cur = conn.cursor(buffered=True)
+
+    cur.execute('use food_delivery_app')
+    cur.callproc('restLogin', [restId, password])
+    for result in cur.stored_results():
+        rest = result.fetchall()
+    
+    print(rest)
+    restData = dict()
+    if not rest:
+        restData['Message'] = 'Invalid Credentials'
+    else:
+        restData['restId'] = rest[0][0]
+        restData['restName'] = rest[0][1]
+        restData['email'] = rest[0][2]
+        restData['streetNo'] = rest[0][4]
+        restData['locality'] = rest[0][5]
+        restData['city'] = rest[0][6]
+        restData['state'] = rest[0][7]
+        restData['pincode'] = rest[0][8]
+    
+    return restData
+
+def updateOrder(orderData):
     pass
 
 
-print( login('dskk', '1235') )
+

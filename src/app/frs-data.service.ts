@@ -10,8 +10,31 @@ export class FrsDataService {
 
   public cartArray = [];
   public cartCount: number = 0;
+  public userName: any;
+  public restName: any;
+  public isAdmin: boolean = false;
+  public isRestaurant: boolean = false;
 
   constructor(private _http: HttpClient) { }
+
+  public postLoginActivities() {
+    if(sessionStorage.getItem('userDetails') != null) {
+      this.userName = JSON.parse(sessionStorage.getItem('userDetails')).username;
+      let p = JSON.parse(sessionStorage.getItem('userDetails')).privelege
+      if(p=="A")
+      {
+        this.isAdmin = true;
+      }
+    }
+
+    if(sessionStorage.getItem('restDetails') != null) {
+      this.restName = JSON.parse(sessionStorage.getItem('restDetails')).restName;
+      {
+        this.isRestaurant = true;
+      }
+    }
+
+  }
 
   public getProductArrays(): any {
     let myResponse = this._http.get(this.baseUrl + '/getProductArray');
@@ -48,6 +71,17 @@ export class FrsDataService {
 
   public getDishDetails(restId, dishId): any{
     let myResponse = this._http.get(this.baseUrl + '/item-details/' + restId + '/' + dishId);
+    return myResponse;
+  }
+
+  public updateOrder(data): any{
+    let myResponse = this._http.post(this.baseUrl + '/updateOrder', data);
+    return myResponse;
+  }
+
+  public restLogin(data): any {
+    let myResponse = this._http.post(this.baseUrl + '/verifyRest', data);
+
     return myResponse;
   }
 

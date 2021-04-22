@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FrsDataService } from '../frs-data.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -10,8 +11,9 @@ export class CartComponent implements OnInit {
 
 public arr: any;
 public total: number;
+public userDetails: any;
 
-  constructor(public frsService: FrsDataService) { }
+  constructor(public frsService: FrsDataService,  public router: Router) { }
 
   ngOnInit(): void {
     if(sessionStorage.getItem('cartArray')!=null){
@@ -23,6 +25,34 @@ public total: number;
 
     this.subTotal();
 
+  }
+
+  onOrder(){
+    
+    if(!this.frsService.userName || !this.frsService.restName)
+    {
+      alert("Please Login to place Order")
+      this.router.navigateByUrl('/login')
+    }
+    else{
+    this.userDetails = JSON.parse(sessionStorage.getItem('userDetails'))
+    this.arr = JSON.parse(sessionStorage.getItem('cartArray'))
+
+    let object = {
+      "userDetails": this.userDetails,
+      "cart": this.arr
+    }
+    
+    this.frsService.updateOrder(object).subscribe(
+      data => {
+      console.log(JSON.stringify(object))
+      },
+      
+      error => {
+        console.log("Some error has occured"+JSON.stringify(error));
+      }
+    )
+  }
   }
 
   updateCart() {

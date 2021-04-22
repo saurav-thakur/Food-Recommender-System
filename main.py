@@ -264,9 +264,29 @@ class UserAdminLogin(Resource):
     password = data['password']
 
     result = db.login(username, password)
-    # if result["Username"] == "None":
-    #   result = db.restDriverLogin(username, password)
     return result
+  
+class RestLogin(Resource):
+
+  def post(self):
+
+    data = request.get_json()
+    restId = data['restId']
+    password = data['password']
+    return db.restLogin(restId, password)
+
+class UpdateOrder(Resource):
+
+  def post(self):
+	  data = request.get_json()
+	  print(data)
+
+	  return {"Message": "Data recieved"}
+
+class AdminStats(Resource):
+
+	def get(self):
+		pass
 
 
 api.add_resource(Order, '/order/<string:rest_ID>/<string:dish_ID>')
@@ -280,6 +300,8 @@ api.add_resource(GetRestList, '/getRestaurants')
 api.add_resource(GetDishes, '/getDishes/<int:restId>')
 api.add_resource(GetDishDetails, '/item-details/<int:restId>/<int:dishId>')
 api.add_resource(UserAdminLogin, '/verifyUser')
+api.add_resource(RestLogin, '/verifyRest')
+api.add_resource(UpdateOrder, '/updateOrder')
 
 if __name__ == "__main__":
     app.run(debug=True)
