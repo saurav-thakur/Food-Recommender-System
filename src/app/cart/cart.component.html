@@ -68,30 +68,39 @@
                         <span>${{total}}</span>
                     </li>
                     <li>
+                        Total inclusive of Tax (5%): 
+                        <span>${{total + (5/100)*total}}</span>
+                    </li>
+                    <li>
                         Shipping 
                         <span>$30</span>
                     </li>
                     <li>
                         Total 
-                        <span><b>${{total+30}}</b></span>
+                        <span><b>${{total + (5/100)*total+30}}</b></span>
                     </li>
                 </ul>
 
-                <div class="item" style="text-align: center;">
-                    <input class="inp-cbx" id="cbx" type="checkbox">
-                    <label class="cbx" for="cbx">
-                        <span>
-                            <!-- <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg> -->
-                        </span>
-                        <span>  Cash On Delivery</span>
-                    </label>
-                </div>
+                <h4 style="text-align: center;"> Select Payement Method</h4>
                 <div style="text-align: center;">
-                    <a routerLink="/" class="default-btn" (click)="onOrder()">Plcace Order</a>
+                    <div class="payment-box">
+                        <div class="payment-method">
+                            <p>
+                                <input type="radio" id="paypal" name="radio-group">
+                                <label for="paypal">PayTM</label>
+                            </p>
+                            <p>
+                                <input type="radio" id="cash-on-delivery" name="radio-group">
+                                <label for="cash-on-delivery">Cash on Delivery</label>
+                            </p>
+                        </div>
+        
+                        <a routerLink="/" class="default-btn" (click)="onOrder()">Place Order</a>
+                    </div>
                 </div>
+                
             </div>
+            
         </form>
     </div>
 </section>

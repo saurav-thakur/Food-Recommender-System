@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { FrsDataService } from '../frs-data.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-details',
@@ -13,7 +14,7 @@ export class ProductDetailsComponent implements OnInit {
 	public dishId: any;
 	public dishData: any;
 
-  constructor(public _route: ActivatedRoute, public router: Router, public frsService: FrsDataService) { }
+  constructor(public _route: ActivatedRoute, public router: Router, public frsService: FrsDataService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
 	  this.restId = this._route.snapshot.paramMap.get('restId');
@@ -44,6 +45,8 @@ export class ProductDetailsComponent implements OnInit {
 		  "dishId": this.dishData.dishId,
 		  "dishName": this.dishData.dishName,
 		  "dishPrice": this.dishData.dishDiscCost,
+		  "restId": this.dishData.restId,
+		  "restName": this.dishData.restName,
 		  "quantity": 1,
 		  "totalCost": this.dishData.dishDiscCost
 	  }
@@ -53,16 +56,26 @@ export class ProductDetailsComponent implements OnInit {
 	}
 	for(let i = 0; i < cartArray.length; i++) 
 	{
-		if(cartArray[i].dishId == this.dishId) 
+		if(cartArray[i].dishId == this.dishId && cartArray[i].restId == this.restId) 
 		{
-			alert("Already in Cart")
+			this.toastr.warning('Item already in Cart', 'Alert')
 			inCart = true;
 			break;
 		}
 	}
 	if(!inCart)
 	{
+		if (cartArray.length !=0)
+		{
+			let lastRest = cartArray[cartArray.length-1].restId
+			if(cartData.restId != lastRest)
+			{
+				this.toastr.error('Cannot add items of different Restaurants into cart', 'Alert')
+				return;
+			}
+		}
 		cartArray.push(cartData);
+		this.toastr.info('Dish added into cart Successfully!', 'Info')
 		sessionStorage.setItem('cartArray', JSON.stringify(cartArray));
 		if(sessionStorage.getItem('cartCount') != null) {
 			let value = parseInt(sessionStorage.getItem('cartCount')) + 1;
@@ -71,6 +84,7 @@ export class ProductDetailsComponent implements OnInit {
 			sessionStorage.setItem('cartCount', "1");
 		}
 		this.frsService.cartCount++;
+		
 		// sessionStorage.getItem('')
 	}
 	 //this.frsService.cartArray.push(this.dishData);

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs/internal/Subject';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,15 @@ export class FrsDataService {
   public isRestaurant: boolean = false;
 
   constructor(private _http: HttpClient) { }
+
+  private subject = new Subject(); 
+
+  sendMessage(message) {
+     this.subject.next(message); 
+  }
+
+  onMessage(): Observable<any> { return this.subject.asObservable(); }
+  
 
   public postLoginActivities() {
     if(sessionStorage.getItem('userDetails') != null) {
@@ -74,15 +85,41 @@ export class FrsDataService {
     return myResponse;
   }
 
-  public updateOrder(data): any{
-    let myResponse = this._http.post(this.baseUrl + '/updateOrder', data);
+  public async updateOrder(data): Promise<any>{
+    let myResponse = await this._http.post(this.baseUrl + '/updateOrder', data).toPromise();
     return myResponse;
   }
+
+  public adminStats(): any{
+    let myResponse = this._http.get(this.baseUrl + '/adminStats');
+    return myResponse;
+  }
+
 
   public restLogin(data): any {
     let myResponse = this._http.post(this.baseUrl + '/verifyRest', data);
 
     return myResponse;
+  }
+
+  public getOrders(username): any{
+    let myResponse = this._http.get(this.baseUrl+ '/getOrders/'+username)
+    return myResponse;
+  }
+
+  public async getLatestOrderId(username): Promise<any>{
+    let myResponse = await this._http.get(this.baseUrl+ '/getLatestOrderId/'+username).toPromise();
+    return myResponse;
+  }
+  
+  public getOrderStatus(orderId): any{
+    let myResponse = this._http.get(this.baseUrl+ '/getOrderStatus?orderId='+orderId)
+    return myResponse;
+  }
+
+  public updateOrderStatus(data): any{
+    let myResponse = this._http.post(this.baseUrl+ '/updateOrderStatus', data)
+    return myResponse
   }
 
   public restaurants = [

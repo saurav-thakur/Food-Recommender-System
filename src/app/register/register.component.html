@@ -233,7 +233,11 @@
 
                         </div>
 
-                        <button type="submit" class="default-btn" [disabled]="!Page2Form.valid" (click)="controlSteps('register')">Register</button>
+                        <button type="submit" class="default-btn" [disabled]="!Page2Form.valid" (click)="controlSteps('register', Page1Form, Page2Form)" id="reg-button">Register</button>
+                        <button class="btn btn-primary" type="button" disabled style="display: none; background-image: linear-gradient(315deg, #000000 0%, #414141 74%);" id="load-button">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Registering...
+                          </button>
 
                         <div style="text-align: center;">
                             <br>

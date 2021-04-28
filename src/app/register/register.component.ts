@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FrsDataService } from '../frs-data.service';
+import { ToastrService } from 'ngx-toastr';
+import { formatCurrency } from '@angular/common';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +29,7 @@ export class RegisterComponent implements OnInit {
   public pincode: number;
   public saveAs: string;
 
-  constructor(public frsService: FrsDataService) { }
+  constructor(public frsService: FrsDataService, public router: Router, public toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -39,7 +43,8 @@ export class RegisterComponent implements OnInit {
           this.stepIndex = 1;
           break;
         case 'register':
-          // call backend
+          document.getElementById('reg-button').style.display = 'none';
+          document.getElementById('load-button').style.display = 'block';
           let gending;
          if(this.gender=="male") {
            gending = 'M';
@@ -73,7 +78,19 @@ export class RegisterComponent implements OnInit {
 
           this.frsService.createUser(object).subscribe(
             data => {
+              document.getElementById('reg-button').style.display = 'block';
+              document.getElementById('load-button').style.display = 'none';
               console.log(data);
+              if(data.Message.includes("taken")){
+                this.toastr.error("Try another username", data.Message)
+              }
+              else
+              {
+                this.toastr.success(data.Message, "Regestration Successful :)")
+                setTimeout(() => {
+                  this.router.navigateByUrl('/login')
+                }, 3000)
+              }
             },
             
             error => {

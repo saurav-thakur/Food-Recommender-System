@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { FrsDataService } from '../frs-data.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   public userData: any;
   public isRestaurantLogin: boolean = false;
 
-  constructor(public frsService: FrsDataService, public router: Router) { }
+  constructor(public frsService: FrsDataService, public router: Router, public toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -33,20 +34,22 @@ export class LoginComponent implements OnInit {
       data => {
         // this.userData =  data
         if(Object.keys(data).length == 1){
-          alert('Invalid Credentials')
+          this.toastr.error('Please check username and password again', 'Invalid Credentials')
         }
         else{
-          alert('Login Successful\n'+JSON.stringify(data))
+          
           sessionStorage.setItem('userDetails', JSON.stringify(data));
           this.frsService.postLoginActivities();
           let p = data.privelege
           if(p=="A")
           {
             this.router.navigateByUrl('/admin');
+            this.toastr.success('Redirecting to Admin page..', 'Login Successful :)')
           }
           else
           {
             this.router.navigateByUrl('/home');
+            this.toastr.success('Place your order now.', 'Login Successful :)')
           }
 
         }
@@ -74,7 +77,7 @@ export class LoginComponent implements OnInit {
           alert('Invalid Credentials')
         }
         else{
-          alert('Login Successful\n'+JSON.stringify(data))
+          this.toastr.success('Redirecting to Restaurant page..', 'Login Successful :)')
           sessionStorage.setItem('restDetails', JSON.stringify(data));
           this.frsService.postLoginActivities();
           this.router.navigateByUrl('/restaurant-admin')

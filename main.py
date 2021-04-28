@@ -277,17 +277,48 @@ class RestLogin(Resource):
 
 class UpdateOrder(Resource):
 
-  def post(self):
-	  data = request.get_json()
-	  print(data)
+	def post(self):
+		data = dict(request.get_json())
+		# print(data)
+		orderData = list(data['orderDetails'].values())
+		orderDishes = data['orderDishes']
+		
+		db.updateOrder(orderData, orderDishes)
 
-	  return {"Message": "Data recieved"}
+		return {"Message": "Order Updated Sucsessfully!"}
 
 class AdminStats(Resource):
 
 	def get(self):
-		pass
+		return db.getAdminStats()
 
+class GetOrders(Resource):
+
+	def get(self, username):
+		orders = db.getOrders(username)
+		# print(orders)
+		return orders
+  
+class GetLatestOrderId(Resource):
+
+  def get(self, username):
+    return db.getLatestOrderId(username)
+
+class GetOrderStatus(Resource):
+
+  def get(self):
+    orderId = request.args.get('orderId')
+    result = db.getOrderStatus(orderId)
+    return result
+
+class UpdateOrderStatus(Resource):
+
+  def post(self):
+    data = request.get_json()
+    print(data)
+    orderId = data['orderId']
+    status = data['status']
+    return db.updateOrderStatus(orderId, status)
 
 api.add_resource(Order, '/order/<string:rest_ID>/<string:dish_ID>')
 api.add_resource(User_Orders, '/<string:username>/orders')
@@ -302,6 +333,11 @@ api.add_resource(GetDishDetails, '/item-details/<int:restId>/<int:dishId>')
 api.add_resource(UserAdminLogin, '/verifyUser')
 api.add_resource(RestLogin, '/verifyRest')
 api.add_resource(UpdateOrder, '/updateOrder')
+api.add_resource(AdminStats, '/adminStats')
+api.add_resource(GetOrders, '/getOrders/<string:username>')
+api.add_resource(GetLatestOrderId,  '/getLatestOrderId/<string:username>')
+api.add_resource(GetOrderStatus, '/getOrderStatus')
+api.add_resource(UpdateOrderStatus, '/updateOrderStatus')
 
 if __name__ == "__main__":
     app.run(debug=True)

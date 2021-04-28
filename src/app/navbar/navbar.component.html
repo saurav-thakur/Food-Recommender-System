@@ -4,7 +4,7 @@
         <div class="container">
             <div class="main-responsive-menu">
                 <div class="logo">
-                    <a routerLink="/"><img src="assets/img/logo.png" alt="image"></a>
+                    <a class="navbar-brand" routerLink="/" ><h2 style="font-family:'Comic Sans MS', Courier, monospace">Food O Mania</h2></a>
                 </div>
             </div>
         </div>
@@ -53,10 +53,10 @@
                             </div>
                         </div>
 
-                        <div class="option-item" *ngIf="frsService.userName && !frsService.isAdmin" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        <div routerLink="/user-profile" class="option-item" *ngIf="frsService.userName && !frsService.isAdmin" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; cursor: pointer;">
                            Welcome {{frsService.userName}}
                         </div>
-                        <div class="option-item" *ngIf="frsService.userName && frsService.isAdmin" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        <div routerLink="/user-profile" class="option-item" *ngIf="frsService.userName && frsService.isAdmin" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; cursor: pointer;">
                             {{frsService.userName}} (Admin)
                          </div>
 

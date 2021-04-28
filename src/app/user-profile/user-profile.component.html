@@ -1,0 +1,102 @@
+<!-- Page Banner -->
+<div class="page-banner-area item-bg4">
+    <div class="container">
+        <div class="page-banner-content">
+            <h2>{{frsService.userName}}</h2>
+            <ul>
+                <li><a routerLink="/">Profile</a></li>
+                <li>Your Orders</li>    
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Page Banner -->
+
+<div class="row">
+<div class="col-lg-4 col-md-12" style="padding-top: 4%;">
+    <div class="portfolio-details-information">
+        <ul>
+            <li>
+                <div class="icon">
+                    <i class='bx bx-user'></i>
+                </div>
+                <span>Name</span>
+                <p>{{userDetails.firstName + ' ' + userDetails.lastName}}</p>
+            </li>
+            <li>
+                <div class="icon">
+                    <i class='bx bxs-map'></i>
+                </div>
+                <span>Address - {{userDetails.addressName}}</span>
+                {{userDetails.houseNo}} ,
+                {{userDetails.locality}} <br>
+                {{userDetails.city}} ,
+                {{userDetails.state}} <br>
+                {{userDetails.pincode}}
+            </li>
+            <li>
+                <div class="icon">
+                    <i class='bx bx-purchase-tag'></i>
+                </div>
+                <span>Email</span>
+                {{userDetails.email}}
+            </li>
+            <li>
+                <div class="icon">
+                    <i class='bx bx-check'></i>
+                </div>
+                <span>Age</span>
+                {{userDetails.age}}
+            </li>
+            <li>
+                <div class="icon">
+                    <i class='bx bx-globe'></i>
+                </div>
+                <span>Gender</span>
+                <p>{{userDetails.gender}}</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="col row" >
+<div *ngFor="let order of orders" style="padding: 5%;">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{order.orderDetails.restName}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Order ID: {{order.orderDetails.orderId}} &nbsp; &nbsp; &nbsp; &nbsp;<small>Status: </small><span class="badge" style="color: white;" [ngClass]="{'bg-success': order.orderDetails.orderStatus=='2', 'bg-warning': order.orderDetails.orderStatus=='1', 'bg-secondary': order.orderDetails.orderStatus=='0'}">{{setOrderStatusDisplay(order.orderDetails.orderStatus)}}</span> </h6>
+          <p class="card-text">Ordered Dishes</p>
+          <!-- <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              A list item <small>Rs.200</small>
+              <span class="badge rounded-pill" style="background-color:coral">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              A second list item <small>Rs.200</small>
+              <span class="badge rounded-pill" style="background-color:coral">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              A third list item  &nbsp; <small>Rs.200</small>
+              <span class="badge rounded-pill" style="background-color:coral">1</span>
+            </li>
+          </ul>
+          <!-- <p class="card-text">1 x Biriyani, 2x Choclate Icecream</p> -->
+          <ol class="list-group list-group-numbered">
+            <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let dish of order.orderDishes">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">{{dish.dishName}}</div>
+                <small *ngIf="dish.dishPrice!=null">Rs {{dish.dishPrice}}</small>
+                <small *ngIf="dish.dishPrice==null">Rs - </small>
+              </div>
+              <span class="badge rounded-pill" style="background-color: coral;">{{dish.quantity}}</span>
+            </li>
+          </ol>
+          <p class="card-text">Order Total: Rs. {{order.orderDetails.orderTotal}}</p>
+          <p class="card-text">Order Date: {{order.orderDetails.dateTime}}</p>
+          <a href="#" class="card-link">Card link</a>
+        </div>
+      </div>
+</div>
+</div>
+</div>
+

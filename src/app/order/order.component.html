@@ -5,8 +5,8 @@
             <span>Get Instantly!</span>
             <h2>Search for your favourite Restaurant or dish!</h2>
             <form class="newsletter-form" data-toggle="validator">
-                <input class="input-newsletter" placeholder="Search" name="EMAIL">
-                <button type="submit">Search</button>
+                <input class="input-newsletter" placeholder="Search" name="query" [(ngModel)]="query">
+                <button type="submit" (click)="onSearch() ">Search</button>
             </form>
         </div>
     </div>
@@ -37,7 +37,7 @@
 <section class="product-area pt-100 pb-100">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-md-12">
+            <div class="col-lg-12 col-md-12">
                 <div class="rainz-grid-sorting row align-items-center">
                     <div class="col-lg-6 col-md-6 result-count">
                         <p>We found <span class="count">10</span> products available for you</p>
@@ -60,131 +60,63 @@
                     </div>
                 </div>
 
-                <div class="row">
-
-                    <div class="col-lg-6 col-md-6" *ngFor="let rest of restList">
-                        <div class="single-products-box">
-                            <div class="products-image">
-                                <a [routerLink]="['/restaurant',rest.restId]">
-                                    <img src="assets/img/shop/shop1.jpg" alt="image">
-                                </a>
-                            </div>
-                            <div class="products-content">
-                                <h3><a  [routerLink]="['/restaurant', rest.restId]">{{ rest.restName }}</a></h3>
-                                <div class="price">
-                                    <p>{{rest.restSpeciality}}</p>
+                <div class="row"  *ngIf="!isSearch">
+                    <!-- <div> -->
+                        <div class="col-lg-4 col-md-4" *ngFor="let rest of restList">
+                            <div class="single-products-box">
+                                <div class="products-image">
+                                    <a [routerLink]="['/restaurant',rest.restId]">
+                                        <img src="assets/img/restaurants/restaurant1.jpg" alt="image">
+                                    </a>
                                 </div>
-                                <div class = "star-rating">
-                                    <span *ngFor="let n of numSequence(rest.restRating);"> 
-                                        <i class='bx bxs-star'></i>
-                                    </span>
+                                <div class="products-content">
+                                    <h3><a  [routerLink]="['/restaurant', rest.restId]">{{ rest.restName }}</a></h3>
+                                    <div class="price">
+                                        <p>{{rest.restSpeciality}}</p>
+                                    </div>
+                                    <div class = "star-rating">
+                                        <span *ngFor="let n of numSequence(rest.restRating);"> 
+                                            <i class='bx bxs-star'></i>
+                                        </span>
+                                    </div>
+                                    
+                                    
+                                    <a routerLink="/cart" class="add-to-cart">View Dishes</a>
                                 </div>
-                                
-                                
-                                <a routerLink="/cart" class="add-to-cart">View Dishes</a>
                             </div>
                         </div>
                     </div>
+                    
 
-                    <div class="col-lg-12 col-md-12">
-                        <div class="pagination-area">
-                            <a routerLink="/shop-2" class="prev page-numbers"><i class="flaticon-left-arrow"></i></a>
-                            <a routerLink="/shop-2" class="page-numbers">1</a>
-                            <span class="page-numbers current" aria-current="page">2</span>
-                            <a routerLink="/shop-2" class="page-numbers">3</a>
-                            <a routerLink="/shop-2" class="page-numbers">4</a>
-                            <a routerLink="/shop-2" class="next page-numbers"><i class="flaticon-next"></i></a>
+                    <div class="row" *ngIf="isSearch">
+                        <div class="col-lg-4 col-md-4" *ngFor="let rest of searchList">
+                            <div class="single-products-box">
+                                <div class="products-image">
+                                    <a [routerLink]="['/restaurant',rest.restId]">
+                                        <img src="assets/img/restaurants/restaurant1.jpg" alt="image">
+                                    </a>
+                                </div>
+                                <div class="products-content">
+                                    <h3><a  [routerLink]="['/restaurant', rest.restId]">{{ rest.restName }}</a></h3>
+                                    <div class="price">
+                                        <p>{{rest.restSpeciality}}</p>
+                                    </div>
+                                    <div class = "star-rating">
+                                        <span *ngFor="let n of numSequence(rest.restRating);"> 
+                                            <i class='bx bxs-star'></i>
+                                        </span>
+                                    </div>
+                                    
+                                    
+                                    <a routerLink="/cart" class="add-to-cart">View Dishes</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-4 col-md-12">
-                <aside class="widget-area">
-
-                    <section class="widget widget_popular_products">
-                        <h3 class="widget-title">Popular Products</h3>
-
-                        <article class="item">
-                            <a routerLink="/products-details" class="thumb">
-                                <span class="fullimage cover bg1" role="img"></span>
-                            </a>
-                            <div class="info">
-                                <h4 class="title usmall"><a routerLink="/products-details">Random Romance Novel Title Generator</a></h4>
-                                <div class="price">
-                                    <p>Speciality</p>
-                                </div>
-                                
-                                <div class="rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </article>
-
-                        <article class="item">
-                            <a routerLink="/products-details" class="thumb">
-                                <span class="fullimage cover bg2" role="img"></span>
-                            </a>
-                            <div class="info">
-                                <span>$59.00</span>
-                                <h4 class="title usmall"><a routerLink="/products-details">Writing Exercises Story Title Ideas</a></h4>
-                                <div class="rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </article>
-
-                        <article class="item">
-                            <a routerLink="/products-details" class="thumb">
-                                <span class="fullimage cover bg3" role="img"></span>
-                            </a>
-                            <div class="info">
-                                <span>$69.00</span>
-                                <h4 class="title usmall"><a routerLink="/products-details">Amaze Story Kitt Net's Book Ideas</a></h4>
-                                <div class="rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </article>
-                    </section>
-
-                    <section class="widget widget_tag_cloud">
-                        <h3 class="widget-title">Popular Tags</h3>
-
-                        <div class="tagcloud">
-                            <a routerLink="/">Business <span class="tag-link-count"> (3)</span></a>
-                            <a routerLink="/">Design <span class="tag-link-count"> (3)</span></a>
-                            <a routerLink="/">Digital <span class="tag-link-count"> (2)</span></a>
-                            <a routerLink="/">SEO <span class="tag-link-count"> (2)</span></a>
-                            <a routerLink="/">Braike <span class="tag-link-count"> (2)</span></a>
-                            <a routerLink="/">Fashion <span class="tag-link-count"> (2)</span></a>
-                            <a routerLink="/">Software <span class="tag-link-count"> (2)</span></a>
-                            <a routerLink="/">Travel <span class="tag-link-count"> (1)</span></a>
-                            <a routerLink="/">Smart <span class="tag-link-count"> (1)</span></a>
-                            <a routerLink="/">Marketing <span class="tag-link-count"> (1)</span></a>
-                            <a routerLink="/">Tips <span class="tag-link-count"> (2)</span></a>
-                            <a routerLink="/">Website <span class="tag-link-count"> (2)</span></a>
-                        </div>
-                    </section>
-                </aside>
-            </div>
         </div>
-    </div>
+    <!-- </div> -->
 </section>
 </ng-template>
 <!-- End Products -->

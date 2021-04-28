@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FrsDataService } from '../frs-data.service';
 import { ActivatedRoute, Router} from '@angular/router';
+import { query } from '@angular/animations';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-order',
@@ -9,16 +12,19 @@ import { ActivatedRoute, Router} from '@angular/router';
 })
 export class OrderComponent implements OnInit {
 
-  constructor(public frsService: FrsDataService) { }
+  constructor(public frsService: FrsDataService, public toastr: ToastrService) { }
 
 numSequence(n: number): Array<number> {
     return Array(n);
   }
 
-  public tabChangeCity;
+  public tabChangeCity = "Hyderabad";
 
   public selected_city = "Hyderabad";
   public restList: any = [];
+  public searchList: any = []
+  public query: string;
+  public isSearch: boolean = false;
   public arr = []
 
   ngOnInit(): void {
@@ -63,5 +69,19 @@ numSequence(n: number): Array<number> {
     this.getRestaurantsMethod(this.tabChangeCity);
   }
 
+  onSearch(){
+    this.toastr.success("'"+this.query+"'", 'Restaurants containing')
+    this.searchList = []
+    for(let i=0; i<this.restList.length; i++)
+    {
+      if(this.restList[i].restName.toString().toLowerCase().includes(this.query.toLowerCase()))
+      {
+        this.searchList.push(this.restList[i])
+      }
+
+    }
+    console.log(this.searchList)
+    this.isSearch = true
+  }
 
 }

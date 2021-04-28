@@ -16,7 +16,7 @@
                     <div class="icon">
                         <i class="flaticon-checked"></i>
                     </div>
-                    <h3><span class="odometer" data-count="950">00</span></h3>
+                    <h3><span>{{adminStatsObject.restCount}}</span></h3>
                     <p>Restaurants</p>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <div class="icon">
                         <i class="flaticon-happy"></i>
                     </div>
-                    <h3><span class="odometer" data-count="850">00</span></h3>
+                    <h3><span  >{{adminStatsObject.userCount}}</span></h3>
                     <p>Happy Users</p>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     <div class="icon">
                         <i class="flaticon-technical-support"></i>
                     </div>
-                    <h3><span class="odometer" data-count="550">00</span></h3>
+                    <h3><span>{{adminStatsObject.orderCount}}</span></h3>
                     <p>Orders placed</p>
                 </div>
             </div>
@@ -46,11 +46,13 @@
                     <div class="icon">
                         <i class="flaticon-trophy"></i>
                     </div>
-                    <h3><span class="odometer" data-count="750">00</span></h3>
+                    <h3><span>{{adminStatsObject.dishesCount}}</span></h3>
                     <p>Disehs Served</p>
                 </div>
             </div>
         </div>
+        <h3 style="text-align: center; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Turnover: &nbsp; Rs.{{adminStatsObject.turnover}}</h3>
+        <h3 style="text-align: center; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Profit: &nbsp; Rs.{{adminStatsObject.profit}}</h3>
     </div>
 </section>
 <!-- End Fun Facts -->
