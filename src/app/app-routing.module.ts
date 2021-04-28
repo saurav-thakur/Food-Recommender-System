@@ -18,6 +18,7 @@ import { RestaurantAdminComponent } from './restaurant-admin/restaurant-admin.co
 import { DishAddComponent } from './dish-add/dish-add.component';
 import { RestaurantStatsComponent } from './restaurant-stats/restaurant-stats.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { TeamComponent } from './team/team.component';
 
 const routes: Routes = [
   {path: '', component: WelcomeComponent},
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path: 'dishes-add', component: DishAddComponent},
   {path: 'restaurant-stats', component: RestaurantStatsComponent},
   {path: 'user-profile', component: UserProfileComponent},
+  {path: 'about-us', component: TeamComponent},
   {path: '**', component: NotFoundComponent}
 ];
 

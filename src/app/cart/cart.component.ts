@@ -133,8 +133,6 @@ public orderStatus: string = '0'
     "restName":this.arr[0].restName
   }
 
-  alert(this.orderDetails.totalCost)
-
 
   for(let i=0; i<this.arr.length; i++)
   {
@@ -143,8 +141,7 @@ public orderStatus: string = '0'
       "dishId": this.arr[i].dishId,
       "quantity": this.arr[i].quantity,
       "dishName": this.arr[i].dishName,
-      "dishPrice": this.arr[i].dishPrice,
-      "restName": this.arr[i].restName,
+      "dishPrice": this.arr[i].dishPrice
     }
     this.orderDishes.push(orderDish)
   }
@@ -155,6 +152,7 @@ public orderStatus: string = '0'
     }
     
     let someData = await this.frsService.updateOrder(object)
+    this.toastr.success('', 'Order Placed Successfully !')
     console.log(JSON.stringify(object))
       sessionStorage.setItem('cartArray','[]');
       sessionStorage.setItem('cartCount','0');

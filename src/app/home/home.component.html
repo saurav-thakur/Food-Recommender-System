@@ -71,7 +71,7 @@
                 </div>
     
                 <div class="col-lg-6 col-md-6 ordering">
-                    <div class="select-box">
+                    <!-- <div class="select-box">
                         <label>Sort By:</label>
                         <div _ngcontent-klu-c83 class="nice-select">
                             <span class="current">Default</span>
@@ -83,6 +83,16 @@
                                 <li data-value="Price: high to low" class="option">Price: high to low</li>
                             </ul>
                     </div>
+                </div> -->
+                <div class="select-box">
+                    <label>Sort By:</label>
+                    <select>
+                        <option>Default</option>
+                        <option>Popularity</option>
+                        <option>Latest</option>
+                        <option>Price: low to high</option>
+                        <option>Price: high to low</option>
+                    </select>
                 </div>
                 </div>
             </div>
@@ -99,8 +109,8 @@
                             <div class="products-content">
                                 <h3><a [routerLink]="['/item-details',product.restId,product.dishId]"> {{ product.name }} </a></h3>
                                 <div class="price">
-                                    <span class="old-price">${{ product['actual cost'] }}</span>
-                                    <span class="new-price">${{ product['discounted price'] }}</span>
+                                    <span class="old-price">Rs. {{ product['actual cost'] }}</span>
+                                    <span class="new-price">Rs. {{ product['discounted price'] }}</span>
                                 </div>
                                 <div class = "star-rating">
                                     <span *ngFor="let n of numSequence(product.rating);"> 
@@ -126,8 +136,8 @@
                             <div class="products-content">
                                 <h3><a routerLink="/products-details"> {{ product.name }} </a></h3>
                                 <div class="price">
-                                    <span class="old-price">${{ product['actual cost'] }}</span>
-                                    <span class="new-price">${{ product['discounted price'] }}</span>
+                                    <span class="old-price">Rs. {{ product['actual cost'] }}</span>
+                                    <span class="new-price">Rs. {{ product['discounted price'] }}</span>
                                 </div>
                                 <div class = "star-rating">
                                     <span *ngFor="let n of numSequence(product.rating);"> 

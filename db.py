@@ -49,12 +49,13 @@ def registerDriver(data):
 
     return {"Message": f"Driver {data['First_name']} {data['Last_Name']} registered successfully!"}
 
-def addDish(dish_data, tagsArray):
+def addDish(dish_data):
 
     conn = mysqlcon.connect(host= "localhost", user = "root", password = "mysql@1234")
     cur = conn.cursor(buffered=True)
 
     cur.execute('use food_delivery_app')
+
     cur.callproc('updateDishTable', list(dish_data.values()))
     
     # for tag in tagsArray:
@@ -70,7 +71,7 @@ def addDish(dish_data, tagsArray):
     conn.commit()
     conn.close()
 
-    return {"Message": f"Dish {dish_data['Dish_Name']} updated successfully!"}
+    return {"Message": f"Dish {dish_data['dishName']} updated successfully!"}
 
 def getRestaurants(city):
 
@@ -150,14 +151,23 @@ def getAdminStats():
     cur.callproc('adminStats')
     for result in cur.stored_results():
         stats = result.fetchall()
-    
+    print(stats)
     adminStats = dict()
     adminStats['restCount'] = stats[0][0]
     adminStats['userCount'] = stats[0][1]
     adminStats['orderCount'] = stats[0][2]
-    adminStats['dishesCount'] = int(stats[0][3])
-    adminStats['turnover'] = stats[0][4]
-    adminStats['profit'] = stats[0][5]
+    if stats[0][3] is None:
+        adminStats['dishesCount'] = 0
+    else:
+        adminStats['dishesCount'] = int(stats[0][3])
+    if stats[0][4] is None:
+        adminStats['turnover'] = 0
+    else:
+        adminStats['turnover'] = stats[0][4]
+    if stats[0][5]==None:
+        adminStats['profit'] = 0
+    else:
+        adminStats['profit'] = stats[0][5]
     return adminStats
 
 def login(username, password):
@@ -222,9 +232,8 @@ def updateOrder(arr, orderDishes):
     cur = conn.cursor(buffered=True)
 
     cur.execute('use food_delivery_app')
-    print("Total", arr[5])
-    print("Type:",type(arr[5]))
-    cur.callproc('updateOrder', [arr[0], arr[1], arr[2], arr[3], arr[4], float(arr[5]), arr[6], arr[7], arr[8], arr[9], arr[10], arr[11], arr[12], arr[13], arr[14], arr[15],arr[16]])
+    print("Total", arr[16])
+    cur.callproc('updateOrder', [arr[0], arr[1], arr[2], arr[3], arr[4], float(arr[5]), arr[6], arr[7], arr[8], arr[9], arr[10], arr[11], arr[12], arr[13], arr[14], arr[15], arr[16]])
     
     username = arr[1]
     cur.callproc('getLatestOrder', [username])
@@ -235,10 +244,9 @@ def updateOrder(arr, orderDishes):
     print("Order Sucsessful")
     for dish in orderDishes:
         print(dish)
-        cur.callproc('updateOrderDishes', [orderId, dish['restId'], dish['dishId'], dish['quantity'], dish['dishName'], dish['dishPrice'], dish['restName']])
+        cur.callproc('updateOrderDishes', [orderId, dish['restId'], dish['dishId'], dish['quantity'], dish['dishName'], dish['dishPrice']])
     
     conn.commit()
-    conn.close()
 
 def getOrders(username):
     conn = mysqlcon.connect(host= "localhost", user = "root", password = "mysql@1234")

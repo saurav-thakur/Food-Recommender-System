@@ -13,6 +13,7 @@ export class ProductDetailsComponent implements OnInit {
 	public restId: any;
 	public dishId: any;
 	public dishData: any;
+	public dishList: any;
 
   constructor(public _route: ActivatedRoute, public router: Router, public frsService: FrsDataService, public toastr: ToastrService) { }
 
@@ -36,6 +37,22 @@ export class ProductDetailsComponent implements OnInit {
 		  console.log("Some error has occured"+JSON.stringify(error));
 		}
 	  )
+
+    this.frsService.getDishes(this.restId).subscribe(
+      data => {
+        this.dishList =  data
+      //   for(let key in this.restList){
+      //   if(this.restList.hasOwnProperty(key)){
+      //     this.arr.push(this.restList[key]);
+      //   }
+      // }
+      console.log(this.dishList)
+      },
+      
+      error => {
+        console.log("Some error has occured"+JSON.stringify(error));
+      }
+    )
   }
 
   cartProcess() {

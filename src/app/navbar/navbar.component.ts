@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FrsDataService } from '../frs-data.service';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +9,7 @@ import { FrsDataService } from '../frs-data.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  constructor(public frsService: FrsDataService, public router: Router) { }
+  constructor(public frsService: FrsDataService, public router: Router, public toastr: ToastrService) { }
 
   ngOnInit(): void {
     if(sessionStorage.getItem('cartCount') != null) {
@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit {
     this.frsService.isAdmin = false;
     this.frsService.isRestaurant = false;
     this.router.navigateByUrl('/login');
+    this.toastr.success('We will miss you.', 'You are now Logged Out ;(')
   }
 
 }

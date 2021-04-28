@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
       data => {
         // this.userData =  data
         if(Object.keys(data).length == 1){
-          alert('Invalid Credentials')
+          this.toastr.error('Please check Restaurant ID and password again', 'Invalid Credentials')
         }
         else{
           this.toastr.success('Redirecting to Restaurant page..', 'Login Successful :)')

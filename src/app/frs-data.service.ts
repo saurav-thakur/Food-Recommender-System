@@ -70,6 +70,11 @@ export class FrsDataService {
     return myResponse;
   }
 
+  public createDish(data): any{
+    let myResponse = this._http.post(this.baseUrl+ '/addDish', data)
+    return myResponse
+  }
+
   public getRestaurants(data): any{
     let myResponse = this._http.get(this.baseUrl + '/getRestaurants?city=' + data);
     return myResponse;

@@ -4,10 +4,10 @@
 <ng-template #products>
     <section class="product-area pt-100 pb-100">
         <div class="container">
-            <h2>Restaurant Name</h2>
+            <h2>{{restName}}</h2>
             <div class="rainz-grid-sorting row align-items-center">
                 <div class="col-lg-6 col-md-6 result-count">
-                    <p>We found <span class="count">10</span> dishes for you</p>
+                    <p><span class="count">{{dishCount}}</span> dishes available.</p>
                 </div>
     
                 <div class="col-lg-6 col-md-6 ordering">

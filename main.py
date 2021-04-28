@@ -227,11 +227,12 @@ class Driver(Resource):
 class AddDish(Resource):
 
     def post(self):
-        data = request.get_json()
-        dish_data = data['dishData']
-        dish_tags = data['dishTags']
-        tagsArray = dish_tags.split(' ')
-        return db.addDish(dish_data, tagsArray)
+        data = dict(request.get_json())
+
+        # dish_data = data['dishData']
+        # dish_tags = data['dishTags']
+        # tagsArray = dish_tags.split(' ')
+        return db.addDish(data)
 
 class GetRestList(Resource):
 
